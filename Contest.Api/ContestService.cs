@@ -6,12 +6,15 @@ using SwaggerWcf.Attributes;
 
 namespace Contest.Api
 {
+  [SwaggerWcfTag("contest")]
   [SwaggerWcf("/v1/rest")]
   public sealed class ContestService : IContestService
   {
-    [SwaggerWcfTag("Players")]
-    [SwaggerWcfResponse(HttpStatusCode.Created, "Player created, value in the response body with id updated")]
+    [SwaggerWcfTag("player")]
+    [SwaggerWcfResponse(HttpStatusCode.Created, "Player created, value in the response body with id updated",
+      Headers = new []{ "X-Rate-Limit-Limit" })]
     [SwaggerWcfResponse(HttpStatusCode.BadRequest, "Bad request", true)]
+    [SwaggerWcfResponse(429, "Request Limit", true, Headers = new[] { "X-Rate-Limit-Limit" })]
     [SwaggerWcfResponse(HttpStatusCode.InternalServerError,
       "Internal error (can be forced using ERROR_500 as player.FirstName)", true)]
     public Player CreatePlayer(Player player)
@@ -39,7 +42,7 @@ namespace Contest.Api
       return player;
     }
 
-    [SwaggerWcfTag("Players")]
+    [SwaggerWcfTag("player")]
     [SwaggerWcfResponse(HttpStatusCode.OK, "Player found, value in the response body")]
     [SwaggerWcfResponse(HttpStatusCode.NoContent, "No players", true)]
     public Player[] GetPlayers()
@@ -56,7 +59,7 @@ namespace Contest.Api
       return null;
     }
 
-    [SwaggerWcfTag("Players")]
+    [SwaggerWcfTag("player")]
     [SwaggerWcfResponse(HttpStatusCode.OK, "Player found, values in the response body")]
     [SwaggerWcfResponse(HttpStatusCode.NotFound, "Player not found", true)]
     public Player GetPlayerById(string id)
@@ -64,7 +67,7 @@ namespace Contest.Api
       throw new NotImplementedException();
     }
 
-    [SwaggerWcfTag("Players")]
+    [SwaggerWcfTag("player")]
     [SwaggerWcfResponse(HttpStatusCode.OK, "Player found, values in the response body")]
     [SwaggerWcfResponse(HttpStatusCode.BadRequest, "Bad request")]
     [SwaggerWcfResponse(HttpStatusCode.NotFound, "Player not found", true)]
@@ -73,7 +76,7 @@ namespace Contest.Api
       throw new NotImplementedException();
     }
 
-    [SwaggerWcfTag("Players")]
+    [SwaggerWcfTag("player")]
     [SwaggerWcfResponse(HttpStatusCode.OK, "Player found, values in the response body")]
     [SwaggerWcfResponse(HttpStatusCode.NotFound, "Player not found", true)]
     [SwaggerWcfResponse(HttpStatusCode.NoContent, "Book deleted")]
@@ -82,7 +85,7 @@ namespace Contest.Api
       throw new NotImplementedException();
     }
 
-    [SwaggerWcfTag("Contests")]
+    [SwaggerWcfTag("contest")]
     [SwaggerWcfResponse(HttpStatusCode.Created, "Contest created, value in the response body with id updated")]
     [SwaggerWcfResponse(HttpStatusCode.BadRequest, "Bad request", true)]
     public ContestInfo CreateContest(ContestInfo contest)
@@ -90,7 +93,7 @@ namespace Contest.Api
       throw new NotImplementedException();
     }
 
-    [SwaggerWcfTag("Contests")]
+    [SwaggerWcfTag("contest")]
     [SwaggerWcfResponse(HttpStatusCode.OK, "Contest and Player found, added player is in response payload")]
     [SwaggerWcfResponse(HttpStatusCode.BadRequest, "Bad request")]
     [SwaggerWcfResponse(HttpStatusCode.NotFound, "Player or contest not found", true)]
@@ -99,7 +102,7 @@ namespace Contest.Api
       throw new NotImplementedException();
     }
 
-    [SwaggerWcfTag("Contests")]
+    [SwaggerWcfTag("contest")]
     [SwaggerWcfResponse(HttpStatusCode.OK,
       "Players found in the specified contest, all participants in response payload")]
     [SwaggerWcfResponse(HttpStatusCode.NoContent, "No players", true)]
