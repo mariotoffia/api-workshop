@@ -134,8 +134,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Api\ContestApiController.cs" />
     <Compile Include="Controllers\PlayerInContestsController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
+    <Compile Include="Controllers\SwaggerController.cs" />
     <Compile Include="Db\DbSeeder.cs" />
     <Compile Include="App_Start\MyRegistry.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />

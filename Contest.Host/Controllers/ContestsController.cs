@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Web.Http;
 using System.Web.OData;
 using Contest.Api.Model;
 using Contest.Host.Db;
@@ -16,9 +16,9 @@ namespace Contest.Host.Controllers
     }
 
     [EnableQuery(PageSize = 100, MaxExpansionDepth = 10)]
-    public IQueryable<ContestInfo> Get()
+    public IHttpActionResult Get()
     {
-      return _session.Query<ContestInfo>();
+      return Ok(_session.Query<ContestInfo>());
     }
 
     protected override void Dispose(bool disposing)
