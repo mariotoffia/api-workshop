@@ -7,7 +7,6 @@ namespace Contest.Api.Model
   [DataContract]
   [Description("Player for a contest")]
   [SwaggerWcfDefinition(ExternalDocsUrl = "http://en.wikipedia.org/wiki/Player", ExternalDocsDescription = "Description of a player")]
-  [KnownType(typeof(PlayerInContest))]
   public class Player
   {
     [DataMember(IsRequired = true)]

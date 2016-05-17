@@ -23,7 +23,7 @@ namespace Contest.Api
       [SwaggerWcfParameter(true, "Player to be created, the id will be set by server")] Player player);
 
     [SwaggerWcfPath("Get Players", "Retrieve all players")]
-    [WebGet(UriTemplate = "/players", BodyStyle = WebMessageBodyStyle.Bare)]
+    [WebGet(UriTemplate = "/players/", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Json)]
     [OperationContract]
     Player[] GetPlayers();
 
@@ -37,7 +37,7 @@ namespace Contest.Api
     [WebInvoke(UriTemplate = "/players/{id}", BodyStyle = WebMessageBodyStyle.Bare, Method = "PUT",
       RequestFormat = WebMessageFormat.Json)]
     [OperationContract]
-    Player UpdatePlayer(
+    Player UpdatePlayer([SwaggerWcfParameter(true, "Player id of the player to update")] string id,
       [SwaggerWcfParameter(true, "Player to be updated, note that the id must be properly set")] Player player);
 
     [SwaggerWcfPath("Delete Player", "Permanently delete a player. However if he or she has participated " +

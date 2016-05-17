@@ -71,7 +71,7 @@ namespace Contest.Api
     [SwaggerWcfResponse(HttpStatusCode.OK, "Player found, values in the response body")]
     [SwaggerWcfResponse(HttpStatusCode.BadRequest, "Bad request")]
     [SwaggerWcfResponse(HttpStatusCode.NotFound, "Player not found", true)]
-    public Player UpdatePlayer(Player player)
+    public Player UpdatePlayer(string id, Player player)
     {
       throw new NotImplementedException();
     }
