@@ -8,11 +8,11 @@ using Marten;
 namespace Contest.Host.Controllers.Api
 {
   [RoutePrefix("api/customer")]
-  public sealed class ContestApiController : ApiController
+  public sealed class CustomerApiController : ApiController
   {
     private readonly IDocumentSession _session;
 
-    public ContestApiController(IStore store)
+    public CustomerApiController(IStore store)
     {
       _session = store.OpenSession();
     }
@@ -28,7 +28,7 @@ namespace Contest.Host.Controllers.Api
     [Route("{customer}")]
     public Kund Get(string customer)
     {
-      var info = _session.Query<Kund>().SingleOrDefault(x => x.Id == customer);
+      var info = _session.Query<Kund>().SingleOrDefault(x => x.Kod == customer);
       if (null == info)
       {
         NotFound();
@@ -39,7 +39,7 @@ namespace Contest.Host.Controllers.Api
     }
 
     [HttpGet]
-    [Route("{customer}/{customerId}")]
+    [Route("{customer}/nr/{customerId}")]
     public Kundnummer GetCustomerNumber(string customer, string customerId)
     {
       var info = _session.Query<Kundnummer>().SingleOrDefault(x => x.Kod == customer && x.Kund == customerId);

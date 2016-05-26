@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Contest.Api.Model;
+using Contest.Host.Model;
 using Marten;
 
 namespace Contest.Host.Db
@@ -13,6 +14,14 @@ namespace Contest.Host.Db
     {
       try
       {
+        _idx = 1;
+        session.Store(new Kund {Id = NextIntId(), Kod = "1234", Beskrivning = "Test Kund 1234", Extern = true},
+          new Kund {Id = NextIntId(), Kod = "12345", Beskrivning = "Test Kund 12345", Extern = true});
+
+        _idx = 1;
+        session.Store(new Kundnummer {Id = NextIntId(), Kod = "5678", Beskrivning = "kundnummer 5678", Kund = "1234"},
+          new Kundnummer {Id = NextIntId(), Kod = "6789", Beskrivning = "kundnummer 6789", Kund = "12345"});
+
         _idx = 1;
         session.Store(new ContestInfo {Id = NextIntId(), Location = "Skelleftea"},
           new ContestInfo {Id = NextIntId(), Location = "Stockholm"},

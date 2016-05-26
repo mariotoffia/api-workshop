@@ -23,6 +23,8 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -69,6 +71,10 @@
     </Reference>
     <Reference Include="Npgsql, Version=3.0.4.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.3.0.4\lib\net45\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NSwag.Annotations, Version=2.37.5989.41670, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.Annotations.2.37.5989.41670\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\NSwag.Annotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpCompress, Version=0.11.3.0, Culture=neutral, PublicKeyToken=beaf6f427e128133, processorArchitecture=MSIL">
@@ -135,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Api\ContestApiController.cs" />
+    <Compile Include="Controllers\Api\CustomerApiController.cs" />
     <Compile Include="Controllers\PlayerInContestsController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
     <Compile Include="Controllers\SwaggerController.cs" />
@@ -148,6 +155,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Model\Kund.cs" />
+    <Compile Include="Model\Kundnummer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -190,4 +199,17 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\NSwag.MSBuild.2.37.0\build\NSwag.MSBuild.targets" Condition="Exists('..\packages\NSwag.MSBuild.2.37.0\build\NSwag.MSBuild.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NSwag.MSBuild.2.37.0\build\NSwag.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NSwag.MSBuild.2.37.0\build\NSwag.MSBuild.targets'))" />
+  </Target>
+  <!--
+  <Target Name="AfterBuild">
+    <Exec Command="$(NSwagExe) webapi2swagger /assembly:$(OutDir)/Contest.Host.dll /controller:Contest.Host.Controllers.Api /output:swagger.json" />
+    <Exec Command="$(NSwagExe) swagger2tsclient /input:swagger.json /output:Scripts/MyController.ts" />
+  </Target>
+  -->
 </Project>
