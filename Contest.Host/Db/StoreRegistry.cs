@@ -12,7 +12,7 @@ namespace Contest.Host.Db
       For<Player>().Searchable(x => x.FirstName).Searchable(x => x.LastName);
       For<PlayerInContest>().Searchable(x => x.FirstName).Searchable(x => x.LastName);
 
-      For<Kund>().Searchable(x => x.Id);
+      For<Kund>().Searchable(x => x.Kod);
       For<Kundnummer>().Searchable(x => x.Kod).Searchable(x => x.Kund);
     }
   }

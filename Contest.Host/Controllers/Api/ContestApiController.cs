@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Contest.Api.Model;
 using Contest.Host.Db;
-using Contest.Host.Model;
 using Marten;
 
 namespace Contest.Host.Controllers.Api
 {
-  [RoutePrefix("api/customer")]
+  [RoutePrefix("api/contests")]
   public sealed class ContestApiController : ApiController
   {
     private readonly IDocumentSession _session;
@@ -19,16 +20,16 @@ namespace Contest.Host.Controllers.Api
 
     [HttpGet]
     [Route("")]
-    public IEnumerable<Kund> Get()
+    public IEnumerable<ContestInfo> Get()
     {
-      return _session.Query<Kund>().ToArray();
+      return _session.Query<ContestInfo>().ToArray();
     }
 
     [HttpGet]
-    [Route("{customer}")]
-    public Kund Get(string customer)
+    [Route("{id}")]
+    public ContestInfo Get(string id)
     {
-      var info = _session.Query<Kund>().SingleOrDefault(x => x.Id == customer);
+      var info = _session.Query<ContestInfo>().SingleOrDefault(x => x.Id == id);
       if (null == info)
       {
         NotFound();
@@ -38,18 +39,25 @@ namespace Contest.Host.Controllers.Api
       return info;
     }
 
-    [HttpGet]
-    [Route("{customer}/{customerId}")]
-    public Kundnummer GetCustomerNumber(string customer, string customerId)
+    [Route("{value}")]
+    [HttpPost]
+    public void Post([FromBody]ContestInfo value)
     {
-      var info = _session.Query<Kundnummer>().SingleOrDefault(x => x.Kod == customer && x.Kund == customerId);
-      if (null == info)
+      if (string.IsNullOrEmpty(value.Id))
       {
-        NotFound();
-        return null;
+        value.Id = Guid.NewGuid().ToString();
       }
 
-      return info;
+      _session.Store(value);
+      _session.SaveChanges();
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    public void Delete(int id)
+    {
+      _session.Delete<ContestInfo>(id);
+      _session.SaveChanges();
     }
 
     protected override void Dispose(bool disposing)
