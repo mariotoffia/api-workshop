@@ -42,6 +42,11 @@ namespace Contest.Host.Controllers.Api
       service.Host = "localhost:53233";
       service.BasePath = "/";
       service.Schemes = new List<SwaggerSchema> {SwaggerSchema.Http};
+      foreach (var op in service.Operations)
+      {
+        op.Operation.Tags = new List<string> {"CustomerAPI"};
+      }
+      
 
       return service.ToJson();
     });

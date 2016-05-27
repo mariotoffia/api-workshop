@@ -32,6 +32,11 @@ namespace Contest.Host.Controllers.Api
       return _session.Query<Kund>().ToArray();
     }
 
+    /// <summary>
+    /// Gets a customer based on a code.
+    /// </summary>
+    /// <param name="customer">The customer code to identify the <see cref="Kund"/> with.</param>
+    /// <returns>If successfull a <see cref="Kund"/> instance otherwise a <see cref="HttpStatusCode.NotFound"/> with an error message is retuned.</returns>
     [HttpGet]
     [Route("{customer}")]
     [ResponseType("200", typeof(Kund))]
