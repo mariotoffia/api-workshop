@@ -158,6 +158,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Api\ContestApiController.cs" />
     <Compile Include="Controllers\Api\CustomerApiController.cs" />
+    <Compile Include="Controllers\Api\SwaggerApiController.cs" />
     <Compile Include="Controllers\PlayerInContestsController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
     <Compile Include="Controllers\SwaggerController.cs" />
